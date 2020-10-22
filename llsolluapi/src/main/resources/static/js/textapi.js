@@ -1,9 +1,5 @@
 $(function() {
-
-		$("#close").click(function(){
-		alert("test");
-		});
-
+	
 		$("#chinese").click(function(){
 			var ko = $("#korean").val();
 			$.ajax({
@@ -12,7 +8,9 @@ $(function() {
 				dataType:"json",
 				data:{korean:ko},
 				success:function(v){
+					console.log(v);
 					var chinese = v.outputs[0];
+					console.log(chinese);
 					$("#china").text(chinese.output);
 				},error:function(e){
 					console.log(e);

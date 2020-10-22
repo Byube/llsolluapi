@@ -5,7 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <meta http-equiv="Cache-Control" content="no-cache" />
-<title>엘솔루 API 테스트</title>
+<title>엘솔루 API 테스트2</title>
 <link rel="stylesheet"
 	href="/resources/js/common/bootstrap/css/bootstrap.min.css"
 	type="text/css" />
@@ -13,10 +13,10 @@
 <script src="/resources/js/common/bootstrap/js/bootstrap.min.js"></script>
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-<script src="/resources/js/textapi.js"></script>
+<script src="/resources/js/textapi2.js"></script>
 </head>
 <body>
-	<h1>엘솔루 API 테스트</h1>
+	<h1>엘솔루 API 테스트 수동번역</h1>
 	<div id="layer-fixed">
 		<p id="title-paragraph">엘솔루 ASR demo</p>
 	</div>
@@ -45,6 +45,8 @@
 			<div id="inner-bottom">
 				<p>- Transcription -</p>
 				<!-- <input type="text" id="input-translate-data-src" /> -->
+
+
 				<div id="input-transcript-data-src"></div>
 			</div>
 		</div>
@@ -87,8 +89,8 @@
 </script>
 
 	<script src="/resources/js/asrclient.js"></script>
-
-
+	<h1>엘솔루 POST /text/translate Neural Machine Translation</h1>
+	<br>
 	<table border="1">
 		<thead>
 			<tr>
@@ -99,9 +101,10 @@
 		</thead>
 		<tbody>
 			<tr>
-				<td><input type="text" id="korean" name="korean"></td>
-				<td width="200" height="30" id="china"></td>
-				<td width="200" height="30" id="usa"></td>
+				<td><textarea rows="20" cols="50" id="korean" name="korean"></textarea></td>
+				<td><textarea rows="20" cols="50" id="china1"
+						disabled="disabled"></textarea></td>
+				<td><textarea rows="20" cols="50" id="usa1" disabled="disabled"></textarea></td>
 			</tr>
 		</tbody>
 	</table>
@@ -109,7 +112,7 @@
 	<input type="button" id="english" value="영어">
 	<input type="button" id="clean" value="리셋">
 	<br>
-	<a href="/contensTest">문자 번역 post 방식 테스트</a>
+	<a href="/llsollu">테스트1로 돌아가기</a>
 
 </body>
 </html>

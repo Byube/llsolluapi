@@ -21,17 +21,17 @@ public class LlsolluController {
 	
 	@RequestMapping("/llsollu")
 	public String goLlusollu() {
-		String address = "dnk/llsollutest";
+		String address = "dnk/llsolluTest";
 		return address;
 	}
 	
-	@RequestMapping("/contenstest")
+	@RequestMapping("/contensTest")
 	public String goContensTest() {
-		String address = "dnk/llsollutest2";
+		String address = "dnk/llsolluTest2";
 		return address;
 	}
 	
-	@RequestMapping("/llsolluChina")
+	@RequestMapping(value="/llsolluChina", produces ="application/text; charset=utf8")
 	@ResponseBody
 	public String Translation(@RequestParam(value = "korean", defaultValue = "-")String korean,
 			Model model) {

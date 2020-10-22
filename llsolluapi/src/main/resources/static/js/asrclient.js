@@ -14,7 +14,6 @@ var recognizer = (function(window) {
 
 	var stream = undefined;
 	function clearUIText() {
-
 		document.getElementById("input-transcript-data-src").innerHTML = "";
 	}
 
@@ -75,7 +74,6 @@ var recognizer = (function(window) {
 					navigator.getUserMedia = navigator.getUserMedia
 						|| navigator.webkitGetUserMedia
 						|| navigator.mozGetUserMedia || navigator.msGetUserMedia;
-				console.log(navigator.getUserMedia);
 				if (navigator.getUserMedia) {
 					if (!recordOpen) {
 						navigator.getUserMedia({
@@ -220,6 +218,11 @@ var recognizer = (function(window) {
 							//////////////////////////////////////////////////////////////////////////////
 							$("#korean").val(msg.result);
 							document.getElementById("input-transcript-data-src").innerHTML = msg.result;
+							
+							//여기에 if문으로 처리 하면됨
+							translate();
+							
+							
 						} else if (msg.rcode == 3) {
 							console.log("event.data:" + event.data);
 						} else {
@@ -243,32 +246,7 @@ var recognizer = (function(window) {
 				micImage.fadeOut(500, function() {
 					micImage.attr('src', '/resources/image/microphone-54.png');
 					micImage.attr('id', 'start');
-					$.ajax({
-						url: "/llsolluChina",
-						type: "GET",
-						dataType: "json",
-						data: { korean: $("#korean").val() },
-						success: function(v) {
-							var chinese = v.outputs[0];
-							$("#china").text(chinese.output);
-						}, error: function(e) {
-							console.log(e);
-							alert(e);
-						}
-					});
-					
-					$.ajax({
-						url: "/llsolluEnglish",
-						type: "GET",
-						dataType: "json",
-						data: { korean: $("#korean").val() },
-						success: function(v) {
-							var english = v.outputs[0];
-							$("#usa").text(english.output);
-						}, error: function(e) {
-							console.log(e);
-						}
-					});
+					translate();
 
 					micImage.fadeIn(1000);
 				})
@@ -315,4 +293,33 @@ this.startRecording = function() {
 
 this.stopRecording = function() {
 	recognizer.stopRecognition();
+}
+
+function translate(){
+	$.ajax({
+		url: "/llsolluChina",
+		type: "GET",
+		dataType: "json",
+		data: { korean: $("#korean").val() },
+		success: function(v) {
+			var chinese = v.outputs[0];
+			$("#china").text(chinese.output);
+		}, error: function(e) {
+			console.log(e);
+			alert(e);
+		}
+	});
+	
+	$.ajax({
+		url: "/llsolluEnglish",
+		type: "GET",
+		dataType: "json",
+		data: { korean: $("#korean").val() },
+		success: function(v) {
+			var english = v.outputs[0];
+			$("#usa").text(english.output);
+		}, error: function(e) {
+			console.log(e);
+		}
+	});
 }
