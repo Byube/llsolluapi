@@ -70,17 +70,22 @@ var recognizer = (function (window) {
 				
 				clearUIText();
 				
+				alert("navigator : "+navigator);
+				
 				if (!navigator.getUserMedia)
 					navigator.getUserMedia = navigator.getUserMedia
 							|| navigator.webkitGetUserMedia
 							|| navigator.mozGetUserMedia || navigator.msGetUserMedia;
-
+							
+							alert("1."+navigator.getUserMedia);
+							alert("2."+recordOpen);
+							
 				if (navigator.getUserMedia) {
 					if(!recordOpen){
 						navigator.getUserMedia({
 							audio : true
 						}, success, function(e) {
-							alert('Error capturing audio.');
+							alert('3   Error capturing audio.');
 						});
 					} else {
 						recording = true;
@@ -88,7 +93,7 @@ var recognizer = (function (window) {
 					}
 					
 				} else {
-					alert('getUserMedia not supported in this browser.');
+					alert('4   getUserMedia not supported in this browser.');
 				}
 				
 				function processAudio(){
