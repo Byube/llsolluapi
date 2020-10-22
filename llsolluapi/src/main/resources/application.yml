@@ -1,0 +1,21 @@
+mybatis:
+  type-aliases-package: com.dnk.llsolluapi.dto
+  mapperLocations: classpath:mapping/*.xml
+server:
+  port: 8080
+spring:
+  mvc:
+    view:
+      prefix: /WEB-INF/jsp/ 
+      suffix: .jsp
+    static-path-pattern: /resources/**
+  datasource:
+    driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
+    url: jdbc:log4jdbc:mysql://124.111.183.215:3306/kth_db?useSSL=false&amp;characterEncoding=UTF-8&amp;serverTimezone=UTC
+    username: kth_db
+    password: kth_db123!@#
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 100MB
+      max-request-size: 100MB      
