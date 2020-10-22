@@ -21,13 +21,13 @@ public class LlsolluController {
 	
 	@RequestMapping("/llsollu")
 	public String goLlusollu() {
-		String address = "dnk/llsolluTest";
+		String address = "dnk/llsollutest";
 		return address;
 	}
 	
-	@RequestMapping("/contensTest")
+	@RequestMapping("/contenstest")
 	public String goContensTest() {
-		String address = "dnk/llsolluTest2";
+		String address = "dnk/llsollutest2";
 		return address;
 	}
 	

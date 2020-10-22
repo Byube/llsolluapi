@@ -12,4 +12,5 @@ public class LlsolluDto {
 	private String apikey;
 	private String target;
 	private String source;
+
 }

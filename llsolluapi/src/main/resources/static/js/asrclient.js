@@ -42,7 +42,7 @@ var recognizer = (function (window) {
 			}
 			
 			micImage.fadeOut(500, function(){
-				micImage.attr('src', '/resources/image/microphone-red-54.png');
+				micImage.attr('src', 'resources/image/microphone-red-54.png');
 				micImage.fadeIn(1000);
 			})
 			
@@ -64,28 +64,23 @@ var recognizer = (function (window) {
 			//해당 page의 도메인 명으로 주소 맵핑이 필요. 즉 asr 서버 IP  주소가 xxx.xxx.xxx.xxx 로 되어 있고 이 자바스크립트를 가지고 있는 웹 또는 WAS 서버의 
 			//도메인 www.aaa.com 이면 yyy.aaa.com 도메인 명을 정해서 이것을 xxx.xxx.xxx.xxx로 맵핑 시켜주어야 함.
 			//Recorder 및 websocket은 localhost만 제외하고는 반드시 https 상에서 동작하도록 되어 있음
-			asrSocket = new WebSocket("wss://asrdemo.llsollu.com/asr/recognition/websocket/");
+			asrSocket = new WebSocket("wss://asrdemo.llsollu.com/asr/recognition/cws/");
 									
 			asrSocket.onopen = function (event){
 				
 				clearUIText();
 				
-				alert("navigator : "+navigator);
-				
 				if (!navigator.getUserMedia)
 					navigator.getUserMedia = navigator.getUserMedia
 							|| navigator.webkitGetUserMedia
 							|| navigator.mozGetUserMedia || navigator.msGetUserMedia;
-							
-							alert("1."+navigator.getUserMedia);
-							alert("2."+recordOpen);
-							
+
 				if (navigator.getUserMedia) {
 					if(!recordOpen){
 						navigator.getUserMedia({
 							audio : true
 						}, success, function(e) {
-							alert('3   Error capturing audio.');
+							alert('Error capturing audio.');
 						});
 					} else {
 						recording = true;
@@ -93,7 +88,7 @@ var recognizer = (function (window) {
 					}
 					
 				} else {
-					alert('4   getUserMedia not supported in this browser.');
+					alert('getUserMedia not supported in this browser.');
 				}
 				
 				function processAudio(){
@@ -121,8 +116,8 @@ var recognizer = (function (window) {
 					
 					var asrRequestOption = new Object();
 					//product code 변경
-					asrRequestOption.productcode = "PRODUCT_CODE";
-					asrRequestOption.domain = "default";
+					asrRequestOption.productcode = "SOLTWORKS";
+					asrRequestOption.domain = "cdefault";
 					asrRequestOption.cmd = "START";
 					asrRequestOption.transactionid = "0";
 					asrRequestOption.language = srcLang;
@@ -130,7 +125,6 @@ var recognizer = (function (window) {
 					asrRequestOption.frmt = "0";
 					asrRequestOption.slu = false;
 					asrRequestOption.partial = true;
-					asrRequestOption.cfl = false;
 					asrSocket.send(JSON.stringify(asrRequestOption));
 					console.log("connected!")
 				}
@@ -143,7 +137,9 @@ var recognizer = (function (window) {
 				}
 				
 				function downsampleBuffer (buffer, sampleRate, outSampleRate) {
-
+				    if (outSampleRate == sampleRate) {
+				        return buffer;
+				    }
 				    if (outSampleRate > sampleRate) {
 				        throw "downsampling rate show be smaller than original sample rate";
 				    }
@@ -178,13 +174,17 @@ var recognizer = (function (window) {
 			}
 			
 			asrSocket.onmessage = function (event) {
-				  console.log("event.data:" + event.data);
+				  //console.log("event.data:" + event.data);
 				  if(event.data[0] != '{') return;
 				  
 				  var msg = JSON.parse(event.data);
 				  
-				  console.log("@@@@@@@@@@state:" + state);
+				  //console.log("@@@@@@@@@@state:" + state);
 				  
+				  if(msg.result == -7){
+					  console.log("음성인식종료");
+					  return;
+				  }
 				  if(state == 1) {
 					  if(msg.result == 1){
 						audioInput.connect(recorder)
@@ -192,11 +192,11 @@ var recognizer = (function (window) {
 						recording = true;
 						  state = 2;
 					  } else {
-						  stopRecording();
+						  //stopRecording();
 						  console.log("error :" + msg.result);
 					  }
 				  } else {
-					  console.log("@@@@@@@@@@msg:" + msg.rcode);
+					  //console.log("@@@@@@@@@@msg:" + msg.rcode);
 					  
 					  						  
 					  if(msg.rcode > -1){
@@ -204,24 +204,30 @@ var recognizer = (function (window) {
 						  
 						  if(msg.rcode == 0){
 							  //epd
-							  closeAudio();
+							  //closeAudio();
 							  
 						  } else if(msg.rcode == 1){
 							  //////////////////////////////////////////////////////////////////////////////
 							  ////  인식결과 - msg.result
 							  //////////////////////////////////////////////////////////////////////////////
 							  document.getElementById("input-transcript-data-src").innerHTML = msg.result;
-							  stopRecording();
+							  //stopRecording();
 						  } else if(msg.rcode == 2){
 							  //////////////////////////////////////////////////////////////////////////////
 							  ////  Partial 인식결과 - msg.result
 							  //////////////////////////////////////////////////////////////////////////////
 							  document.getElementById("input-transcript-data-src").innerHTML = msg.result;
+						  } else if(msg.rcode == 3){
+							  console.log("event.data:" + event.data);
 						  } else {
-						 
+							  
+							  
 						  }
+						  
+						  
+						  
 					  } else{
-						  stopRecording();
+						  //stopRecording();
 						  console.log("error : result code -" + msg.rcode);
 					  }
 				  }
@@ -231,6 +237,10 @@ var recognizer = (function (window) {
 			asrSocket.onclose = function (event) {
 				  console.log("onclose");
 				  closeAudio();
+				  micImage.fadeOut(500, function(){
+				micImage.attr('src', 'resources/image/microphone-54.png');
+				micImage.fadeIn(1000);
+			})
 				  recording = false;
 			};
 			
@@ -247,7 +257,7 @@ var recognizer = (function (window) {
 			closeAudio();
 
 			micImage.fadeOut(500, function(){
-				micImage.attr('src', '/resources/image/microphone-54.png');
+				micImage.attr('src', 'resources/image/microphone-54.png');
 				micImage.fadeIn(1000);
 			})
 			

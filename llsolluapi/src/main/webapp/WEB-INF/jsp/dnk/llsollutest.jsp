@@ -88,7 +88,6 @@
 
 	<script src="/resources/js/asrclient.js"></script>
 
-
 	<table border="1">
 		<thead>
 			<tr>
