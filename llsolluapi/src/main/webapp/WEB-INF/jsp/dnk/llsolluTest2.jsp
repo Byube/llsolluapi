@@ -45,6 +45,8 @@
 			<div id="inner-bottom">
 				<p>- Transcription -</p>
 				<!-- <input type="text" id="input-translate-data-src" /> -->
+				
+				
 				<div id="input-transcript-data-src"></div>
 			</div>
 		</div>
