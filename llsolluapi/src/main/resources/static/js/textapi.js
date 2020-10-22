@@ -1,4 +1,9 @@
 $(function() {
+
+		$("#close").click(function(){
+		alert("test");
+		});
+
 		$("#chinese").click(function(){
 			var ko = $("#korean").val();
 			$.ajax({
