@@ -5,6 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <meta http-equiv="Cache-Control" content="no-cache" />
+<!-- <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
 <title>엘솔루 API 테스트</title>
 <link rel="stylesheet"
 	href="resources/js/common/bootstrap/css/bootstrap.min.css"
@@ -19,6 +20,12 @@
 	
 	#inner-bottom{
 		display: none;
+	}
+	#language-select-div{
+		display: none;
+	}
+	.main_txt{
+		font-size: 30px; 
 	}
 	
 	body{
@@ -75,7 +82,7 @@
 	}
     .wrap div p{
     	width: 100%;
-    	height: 45px;
+    	height: 60px;
     	display: block;
     	margin:0;
     	padding: 10px 20px;
@@ -99,12 +106,12 @@
     	word-break:break-all;
     }
     .overlay .btn{
-    	width: 100px;
-    	height: 100px;
+    	width: 130px;
+    	height: 130px;
     }
     .overlay .btn_reset{
-    	width: 50px;
-    	height: 50px;
+    	width: 70px;
+    	height: 70px;
         vertical-align: bottom;
 	    margin-left: 30px;
     	border: none;
@@ -123,11 +130,12 @@
     }
     .trans_box .btn_transfer{
     	float:right;
-    	padding: 5px 10px 5px 35px;
-    	background: #2acdcf url(../resources/image/btn_transfer.png) no-repeat  7px center;
+    	padding: 5px 10px 5px 40px;
+    	background: #2acdcf url(../resources/image/btn_transfer.png) no-repeat  10px center;
     	background-size: 20%;
     	color:#fff;
     	border-radius: 50px;
+    	font-size: 0.5em;
     }
     
     .txt_is{
@@ -146,6 +154,29 @@
 	    	width: 100%;
 	    	margin-top: 50px;
 	    }
+	    .main_txt{
+			font-size: 35px; 
+		}
+	    .overlay{
+	    	width: 100%;
+	    }
+	    .overlay .btn {
+	    	width: 150px;
+	    	height: 150px;
+	    }
+	    .overlay .btn_reset{
+	    	width: 100px;
+	    	height: 100px;
+	    }
+	    .trans_box .btn_transfer{
+    	float:right;
+    	padding: 5px 15px 5px 55px;
+    	background: #2acdcf url(../resources/image/btn_transfer.png) no-repeat  10px center;
+    	background-size: 20%;
+    	color:#fff;
+    	border-radius: 50px;
+    	font-size: 0.7em;
+    }
     }
    
 </style>
@@ -214,20 +245,20 @@
 	
 	<div class="wrap">
 		<div class="trans_box">
-			<p>한국어</p>
+			<p class="main_txt">한국어</p>
 			<div class="trans_txt">
 				<textarea id="korean" name="korean" class="txt_is"></textarea>
 			</div>
 		</div>
 		<div class="trans_box">
-			<p>중국어 
+			<p class="main_txt">중국어 
 				<input type="button" class="btn_transfer" id="chinese" value="번역하기">
 			</p>
 			<div class="trans_txt txt_is" id="china">
 			</div>
 		</div>
 		<div class="trans_box">
-			<p>영어
+			<p class="main_txt">영어
 				<input type="button" class="btn_transfer" id="english" value="번역하기">
 			</p>
 			<div class="trans_txt txt_is" id="usa">
