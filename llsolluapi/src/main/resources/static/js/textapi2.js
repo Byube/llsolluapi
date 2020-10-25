@@ -1,33 +1,32 @@
 $(function() {
-		$("#chinese").click(function(){
-			var ko = $("#korean").val();
+		$("#korea").click(function(){
+			var eng = $("#usa").val();
 			$.ajax({
-				url:"/contensChina",
-				type:"GET",
-				dataType:"json",
-				data:{korean:ko},
-				success:function(v){
-					var chinese = v.outputs[0];
-					$("#china").text(chinese.output);
-					console.log(v);
-				},error:function(e){
+				url: "/contensKorean",
+				type: "GET",
+				dataType: "json",
+				data: { english: eng },
+				success: function(v) {
+					var korean = v.outputs[0];
+					$("#kor").text(korean.output);
+				}, error: function(e) {
 					console.log(e);
-					alert(e);
 				}
 			});
 		});
-		$("#english").click(function(){
-			var ko = $("#korean").val();
+		$("#chinese").click(function(){
+			var eng = $("#usa").val();
 			$.ajax({
-				url:"/contensEnglish",
-				type:"GET",
-				dataType:"json",
-				data:{korean:ko},
-				success:function(v){
-					var english = v.outputs[0];
-					$("#usa").text(english.output);
-				},error:function(e){
+				url: "/contensChina",
+				type: "GET",
+				dataType: "json",
+				data: { english: eng },
+				success: function(v) {
+					var chinese = v.outputs[0];
+					$("#china").text(chinese.output);
+				}, error: function(e) {
 					console.log(e);
+					alert(e);
 				}
 			});
 		});

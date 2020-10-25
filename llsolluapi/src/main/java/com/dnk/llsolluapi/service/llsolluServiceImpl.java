@@ -40,7 +40,7 @@ public class llsolluServiceImpl implements llsolluService {
 	@Override
 	public String getllsolluTranslate(LlsolluDto ld) {
 		String reqURL = "https://api.llsollu.com/v1/translation/text/translate?api-key=" + ld.getApikey()
-				+ "&source=ko&target=" + ld.getTarget();
+				+ "&source=en&target=" + ld.getTarget();
 		String result = "";
 		try {
 			HttpPost post = new HttpPost(reqURL);

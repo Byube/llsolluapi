@@ -52,9 +52,9 @@ var recognizer = (function(window) {
 			var srcLang = document.getElementsByClassName("dropp-src")[0].innerHTML;
 
 			if (srcLang.indexOf("한국어") >= 0) {
-				srcLang = "kor";
+				srcLang = "eng";
 			} else {
-				srcLang = "kor";
+				srcLang = "eng";
 			};
 
 
@@ -216,7 +216,7 @@ var recognizer = (function(window) {
 							//////////////////////////////////////////////////////////////////////////////
 							////  Partial 인식결과 - msg.result
 							//////////////////////////////////////////////////////////////////////////////
-							$("#korean").val(msg.result);
+							$("#usa").val(msg.result);
 							document.getElementById("input-transcript-data-src").innerHTML = msg.result;
 							
 							//여기에 if문으로 처리 하면됨
@@ -296,30 +296,30 @@ this.stopRecording = function() {
 }
 
 function translate(){
+	
+	$.ajax({
+		url: "/contensKorean",
+		type: "GET",
+		dataType: "json",
+		data: { english: $("#usa").val() },
+		success: function(v) {
+			var korean = v.outputs[0];
+			$("#kor").text(korean.output);
+		}, error: function(e) {
+			console.log(e);
+		}
+	});
 	$.ajax({
 		url: "/llsolluChina",
 		type: "GET",
 		dataType: "json",
-		data: { korean: $("#korean").val() },
+		data: { english: $("#usa").val() },
 		success: function(v) {
 			var chinese = v.outputs[0];
 			$("#china").text(chinese.output);
 		}, error: function(e) {
 			console.log(e);
 			alert(e);
-		}
-	});
-	
-	$.ajax({
-		url: "/llsolluEnglish",
-		type: "GET",
-		dataType: "json",
-		data: { korean: $("#korean").val() },
-		success: function(v) {
-			var english = v.outputs[0];
-			$("#usa").text(english.output);
-		}, error: function(e) {
-			console.log(e);
 		}
 	});
 }

@@ -2,6 +2,8 @@ package com.dnk.llsolluapi;
 
 import java.net.URLEncoder;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,6 +17,8 @@ import com.dnk.llsolluapi.service.llsolluService;
 
 @Controller
 public class LlsolluController {
+	
+	private static final Logger logger = LoggerFactory.getLogger(LlsolluController.class);
 	
 	@Autowired
 	llsolluService llsolluService;
@@ -61,32 +65,33 @@ public class LlsolluController {
 		return china;
 	}
 	
-	@RequestMapping("/contensChina")
+	@RequestMapping(value="/contensChina", produces ="application/text; charset=utf8")
 	@ResponseBody
-	public String Translation3(@RequestParam(value = "korean", defaultValue = "-")String korean,
+	public String Translation3(@RequestParam(value = "english", defaultValue = "-")String english,
 			Model model) {
 		LlsolluDto ld = new LlsolluDto();
 		String apikey = "734ac34d-5577-452f-8fed-56cd96f54c19";
 		String target = "zh";
-		ld.setKorean(korean);
+		ld.setKorean(english);
 		ld.setApikey(apikey);
 		ld.setTarget(target);
 		String china = llsolluService.getllsolluTranslate(ld);
 		return china;
 	}
 	
-	@RequestMapping("/contensEnglish")
+	@RequestMapping(value="/contensKorean", produces ="application/text; charset=utf8")
 	@ResponseBody
-	public String Translation4(@RequestParam(value = "korean", defaultValue = "-")String korean,
+	public String Translation4(@RequestParam(value = "english", defaultValue = "-")String english,
 			Model model) {
 		LlsolluDto ld = new LlsolluDto();
 		String apikey = "734ac34d-5577-452f-8fed-56cd96f54c19";
-		String target = "en";
-		ld.setKorean(korean);
+		String target = "ko";
+		ld.setKorean(english);
 		ld.setApikey(apikey);
 		ld.setTarget(target);
-		String china = llsolluService.getllsolluTranslate(ld);
-		return china;
+		String korean = llsolluService.getllsolluTranslate(ld);
+		//logger.info(">>>>>>>>"+korean);
+		return korean;
 	}
 
 	
